@@ -7,17 +7,30 @@
 
 import SwiftUI
 
+// FIXME: - Title Modifier
 public struct Title: ViewModifier {
     
+    public var proxy: GeometryProxy
+    public var proxyFloat: CGFloat
     public var color: Color
+    public var weight: Font.Weight
     
-    public init(color: Color) {
+    public func proxyHeight(for proxy: GeometryProxy) -> CGFloat {
+        let proxyHeight = proxy.size.height * proxyFloat
+        
+        return proxyHeight
+    }
+    
+    public init(proxy: GeometryProxy, proxyFloat: CGFloat, color: Color, weight: Font.Weight) {
         self.color = color
+        self.proxy = proxy
+        self.proxyFloat = proxyFloat
+        self.weight = weight
     }
     
     public func body(content: Content) -> some View {
         content
-            .font(.largeTitle)
+            .font(.system(size: proxyHeight(for: proxy), weight: weight))
             .foregroundColor(color)
             
     }
@@ -56,7 +69,6 @@ public struct WaterMark: ViewModifier {
         ZStack(alignment: alignment) {
             content
             Text(text)
-//                .modifier(Title(color: color))
                 .font(.caption)
                 .padding()
                 .background(backgroundColor)

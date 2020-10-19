@@ -10,8 +10,8 @@ import SwiftUI
 
 extension View {
     
-    public func titleStyle(color: Color) -> some View {
-        self.modifier(Title(color: color))
+    public func titleStyle(color: Color, proxy: GeometryProxy, proxyFloat: CGFloat, weight: Font.Weight) -> some View {
+        self.modifier(Title(proxy: proxy, proxyFloat: proxyFloat, color: color, weight: weight))
     }
     
     public func waterMark(with text: String, color: Color, backgroundColor: Color, alignment: Alignment) -> some View {
